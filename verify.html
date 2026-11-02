@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify ID — Sartagoda Port</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <a href="index.html" class="logo">⚓ Sartagoda Port</a>
+  <nav>
+    <a href="index.html#routes">Routes</a>
+    <a href="booking.html">Book</a>
+    <span id="navAccountSlot" class="nav-account"></span>
+  </nav>
+</header>
+
+<main class="account-main">
+  <section class="card account-card">
+    <h2 class="verify-title">Verify Your ID</h2>
+    <p class="verify-intro">Upload a clear photo of a valid government-issued ID (e.g. passport, driver's license, national ID, UMID). This is checked once before your first booking.</p>
+
+    <div id="statusBanner" class="status-banner"></div>
+
+    <form id="verifyForm" class="account-form">
+      <div class="form-row">
+        <label for="idFile">ID Photo (JPEG or PNG, max 5MB)</label>
+        <input type="file" id="idFile" accept="image/jpeg,image/png" required>
+      </div>
+      <img id="idPreview" class="id-preview" style="display:none">
+      <button type="submit" class="btn-primary">Submit for Verification</button>
+    </form>
+  </section>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<footer>
+  <p>&copy; 2026 Sartagoda Port Booking System. All rights reserved.</p>
+</footer>
+
+<script src="auth.js"></script>
+<script src="verify.js"></script>
+</body>
+</html>

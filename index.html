@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sartagoda Port — Ferry Booking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <a href="index.html" class="logo">⚓ Sartagoda Port</a>
+  <nav>
+    <a href="index.html#routes">Routes</a>
+    <a href="booking.html">Book</a>
+    <span id="navAccountSlot" class="nav-account"></span>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Ferry booking</p>
+    <h1>Sartagoda Port Booking System</h1>
+    <p class="hero-sub">Reserve your trip between Guihulngan and Tangil in under a minute. Pay easily with GCash. No queueing at the terminal.</p>
+    <div class="hero-actions">
+      <a href="booking.html" class="btn-primary btn-hero">Book a trip</a>
+      <a href="account.html" class="btn-ghost">Create an account</a>
+    </div>
+  </div>
+
+  <div class="board" aria-label="Departure board">
+    <div class="board-header">
+      <span>DEPARTURES</span>
+      <span class="board-clock" id="boardClock">--:--</span>
+    </div>
+    <div class="board-cols">
+      <span>ROUTE</span><span>TIME</span><span>STATUS</span>
+    </div>
+    <div class="board-rows" id="boardRows"></div>
+  </div>
+</section>
+
+<main>
+  <section id="routes" class="card reveal">
+    <h2>Routes &amp; Fares</h2>
+    <div class="route-grid">
+      <div class="route-card reveal">
+        <p class="route-name">Guihulngan → Tangil</p>
+        <p class="route-meta">3 trips daily · 7:00 AM, 11:00 AM, 4:00 PM</p>
+        <p class="route-fare">Regular ₱350 · Child ₱250 · Senior/PWD ₱280</p>
+      </div>
+      <div class="route-card reveal">
+        <p class="route-name">Tangil → Guihulngan</p>
+        <p class="route-meta">3 trips daily · 7:00 AM, 11:00 AM, 4:00 PM</p>
+        <p class="route-fare">Regular ₱350 · Child ₱250 · Senior/PWD ₱280</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card steps-card reveal">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step reveal">
+        <span class="step-mark">Create an account</span>
+        <p>Sign up with your name, email, and phone number so your bookings and reference numbers are saved.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-mark">Verify your ID</span>
+        <p>Upload a valid government ID once — passport, driver's license, national ID, or UMID.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-mark">Pick a trip</span>
+        <p>Choose your route, travel date, trip time (7:00 AM, 11:00 AM or 4:00 PM), and passenger types.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-mark">Pay &amp; go</span>
+        <p>Pay with GCash, then show your reference number to board.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Sartagoda Port Booking System. All rights reserved.</p>
+</footer>
+
+<script src="auth.js"></script>
+<script src="landing.js"></script>
+</body>
+</html>

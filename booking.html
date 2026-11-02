@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Trip — Sartagoda Port</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <a href="index.html" class="logo">⚓ Sartagoda Port</a>
+  <nav>
+    <a href="index.html#routes">Routes</a>
+    <a href="booking.html">Book</a>
+    <span id="navAccountSlot" class="nav-account"></span>
+  </nav>
+</header>
+
+<section class="hero hero-compact">
+  <h1>Book Your Trip</h1>
+  <p>Reserve your ferry trip quickly and easily</p>
+</section>
+
+<main>
+  <div id="idGateBanner" class="status-banner" style="display:none"></div>
+
+  <section id="book" class="card">
+    <h2>New Booking</h2>
+    <form id="bookingForm">
+      <div class="form-row">
+        <label for="passenger">Passenger Name</label>
+        <input type="text" id="passenger" required placeholder="Juan Dela Cruz">
+      </div>
+
+      <div class="form-row">
+        <label for="route">Route</label>
+        <select id="route" required>
+          <option value="">-- Select Route --</option>
+          <option value="Guihulngan - Tangil">Guihulngan → Tangil</option>
+          <option value="Tangil - Guihulngan">Tangil → Guihulngan</option>
+        </select>
+      </div>
+
+      <div class="form-row two-col">
+        <div>
+          <label for="date">Travel Date</label>
+          <input type="date" id="date" required>
+        </div>
+        <div>
+          <label for="time">Trip Time</label>
+          <select id="time" required>
+            <option value="">-- Select --</option>
+            <option value="07:00 AM">7:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="04:00 PM">4:00 PM</option>
+          </select>
+        </div>
+      </div>
+
+      <fieldset class="fare-fieldset">
+        <legend>Passengers &amp; Fares</legend>
+        <div class="fare-row">
+          <div>
+            <span class="fare-label">Regular</span>
+            <span class="fare-price">₱350</span>
+          </div>
+          <input type="number" id="qtyRegular" min="0" max="20" value="1" aria-label="Regular passengers">
+        </div>
+        <div class="fare-row">
+          <div>
+            <span class="fare-label">Child (Bata)</span>
+            <span class="fare-price">₱250</span>
+          </div>
+          <input type="number" id="qtyChild" min="0" max="20" value="0" aria-label="Child passengers">
+        </div>
+        <div class="fare-row">
+          <div>
+            <span class="fare-label">Senior / PWD</span>
+            <span class="fare-price">₱280</span>
+          </div>
+          <input type="number" id="qtySenior" min="0" max="20" value="0" aria-label="Senior or PWD passengers">
+        </div>
+        <p class="fare-total">Total passengers: <strong id="paxTotal">1</strong> · Fare total: <strong id="fareTotal">₱350</strong></p>
+      </fieldset>
+
+      <div class="form-row">
+        <label for="contact">Contact Number</label>
+        <input type="tel" id="contact" required placeholder="09xx-xxx-xxxx">
+      </div>
+
+      <div id="availabilityNote" class="availability-note" style="display:none"></div>
+
+      <button type="submit" class="btn-primary" id="bookingSubmitBtn">Continue to GCash Payment</button>
+    </form>
+  </section>
+
+  <section id="bookings" class="card">
+    <h2>My Bookings</h2>
+    <div id="bookingsList" class="bookings-list">
+      <p class="empty-msg">No bookings yet. Book your trip above!</p>
+    </div>
+  </section>
+</main>
+
+<div id="paymentOverlay" class="modal-overlay" style="display:none">
+  <div class="modal payment-modal">
+    <button class="modal-close" id="paymentClose" type="button" aria-label="Close">&times;</button>
+
+    <div id="paymentChoiceView">
+      <h2>Pay with GCash</h2>
+      <div class="pay-summary">
+        <span>Reference</span><strong id="paySummaryRef"></strong>
+        <span>Route</span><strong id="paySummaryRoute"></strong>
+        <span>Total</span><strong id="paySummaryTotal"></strong>
+      </div>
+      <button class="btn-gcash" id="chooseGcash" type="button">
+        <span class="gcash-mark">GCash</span>
+        <span>Scan to Pay with GCash</span>
+      </button>
+    </div>
+
+    <div id="walletQrView" style="display:none">
+      <div class="wallet-header wallet-header-gcash" id="walletHeader">
+        <span class="wallet-mark gcash-mark">GCash</span>
+        <span class="gcash-sandbox-tag">Sandbox</span>
+      </div>
+      <p class="gcash-note">Scan this code with your GCash app to pay. This is a simulated sandbox code for demo purposes — no real payment is sent.</p>
+      <div class="qr-frame">
+        <canvas id="walletQrCanvas" width="200" height="200"></canvas>
+      </div>
+      <p class="gcash-amount">₱<span id="walletAmount"></span></p>
+      <button class="btn-gcash-confirm" id="walletConfirmBtn">I've Scanned &amp; Paid</button>
+      <button class="btn-link" id="walletBack" type="button">&larr; Back</button>
+    </div>
+
+    <div id="gcashProcessingView" style="display:none">
+      <div class="gcash-spinner"></div>
+      <p>Confirming your payment&hellip;</p>
+    </div>
+
+    <div id="gcashSuccessView" style="display:none">
+      <div class="gcash-success-mark">✓</div>
+      <h2>Payment Successful</h2>
+      <p class="gcash-note">Reference: <span id="gcashPaidRef" class="mono"></span></p>
+      <button class="btn-primary" id="gcashDone" type="button">Done</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<footer>
+  <p>&copy; 2026 Sartagoda Port Booking System. All rights reserved.</p>
+</footer>
+
+<script src="auth.js"></script>
+<script src="qr.js"></script>
+<script src="input.js"></script>
+</body>
+</html>
